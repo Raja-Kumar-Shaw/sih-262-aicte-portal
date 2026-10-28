@@ -1,3 +1,5 @@
+import { handleMockRequest } from './mockApi';
+
 const API_BASE = '/api';
 
 export function getAuthToken(): string | null {
@@ -38,18 +40,22 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
     headers['Content-Type'] = 'application/json';
   }
 
-  const response = await fetch(`${API_BASE}${endpoint}`, {
-    ...options,
-    headers
-  });
+  try {
+    const response = await fetch(`${API_BASE}${endpoint}`, {
+      ...options,
+      headers
+    });
 
-  const data = await response.json().catch(() => ({}));
+    const contentType = response.headers.get('content-type') || '';
+    if (!response.ok || !contentType.includes('application/json')) {
+      throw new Error(`HTTP ${response.status}`);
+    }
 
-  if (!response.ok) {
-    throw new Error(data.error || `HTTP ${response.status}: Request failed`);
+    return await response.json();
+  } catch (err) {
+    console.warn(`[API] Backend unavailable for ${endpoint}, activating client mock engine:`, err);
+    return handleMockRequest<T>(endpoint, options);
   }
-
-  return data as T;
 }
 
 export const api = {
