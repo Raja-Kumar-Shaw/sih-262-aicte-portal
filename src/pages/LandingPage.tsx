@@ -16,6 +16,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import { getCurrentUser } from '../services/api';
+import aicteLogo from '../assets/aicte-logo.png';
 
 interface LandingPageProps {
   onOpenDemoModal: () => void;
@@ -40,7 +41,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenDemoModal }) => 
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '6px 14px', borderRadius: '20px', width: 'fit-content' }}>
             <img
-              src="/aicte-logo.png"
+              src={aicteLogo}
               alt="AICTE"
               style={{ width: '24px', height: '24px', objectFit: 'contain' }}
             />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bell, ShieldCheck, User as UserIcon, RefreshCw, CheckCircle2, AlertTriangle, LogOut } from 'lucide-react';
 import { getCurrentUser, clearAuthSession, api } from '../services/api';
+import aicteLogo from '../assets/aicte-logo.png';
 
 interface HeaderProps {
   onOpenDemoModal: () => void;
@@ -74,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDemoModal, unreadCount = 0
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '14px', textDecoration: 'none' }}>
             <div className="emblem-logo">
               <img
-                src="/aicte-logo.png"
+                src={aicteLogo}
                 alt="AICTE Official Emblem"
                 style={{ height: '56px', width: 'auto', objectFit: 'contain' }}
               />
